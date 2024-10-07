@@ -9,7 +9,7 @@
     @apply bg-background;
 
     font-family: 'Montserrat', system-ui, sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     line-height: 1.5;
 
     font-synthesis: none;
@@ -20,6 +20,7 @@
 
 a {
     color: #646cff;
+    font-weight: 600;
     text-decoration: inherit;
 }
 
@@ -32,4 +33,10 @@ body {
     display: flex;
     min-width: 320px;
     min-height: 100vh;
+}
+
+@layer base {
+    :root {
+        --radius: 0.5rem;
+    }
 }
