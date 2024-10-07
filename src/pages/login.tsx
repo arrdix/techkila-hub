@@ -24,7 +24,7 @@ export function Login(): JSX.Element {
     }
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 p-4">
             <p className="font-bold">TechkilaHub</p>
             <div className="flex flex-col gap-2">
                 <h2 className="text-3xl font-extrabold">

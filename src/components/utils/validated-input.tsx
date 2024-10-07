@@ -8,8 +8,6 @@ interface ValidatedInputProps<T extends FieldValues> {
     name: Path<T>
     register: UseFormRegister<T>
     error: FieldError | undefined
-    leftLabel?: string
-    rightLabel?: string
 }
 
 function ValidatedInput<T extends FieldValues>(props: ValidatedInputProps<T>): JSX.Element {

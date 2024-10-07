@@ -30,13 +30,24 @@ a:hover {
 
 body {
     margin: 0;
-    display: flex;
-    min-width: 320px;
+    max-width: 640px;
     min-height: 100vh;
+    /* display: flex; */
+    /* min-width: 320px; */
 }
 
 @layer base {
     :root {
         --radius: 0.5rem;
+    }
+}
+
+@layer base {
+    :root {
+        --chart-1: #000000;
+        --chart-2: #000000;
+        --chart-3: #000000;
+        --chart-4: #000000;
+        --chart-5: #000000;
     }
 }

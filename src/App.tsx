@@ -1,10 +1,16 @@
-import { Login } from '../src/pages/login'
+import { Layout } from '@/layouts/Layout'
+import { Dashboard } from '@/pages/dashboard'
+import { Login } from '@/pages/login'
+import { Route, Routes } from 'react-router-dom'
 
 function App(): JSX.Element {
     return (
-        <div className="flex flex-col gap-4 p-8">
-            <Login />
-        </div>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="/login" element={<Login />} />
+            </Route>
+        </Routes>
     )
 }
 
