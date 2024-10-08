@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as RechartsPrimitive from 'recharts'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { NameType, Payload, ValueType } from 'recharts/types/component/DefaultTooltipContent'
 
 import { cn } from '@/lib/utils'
@@ -65,6 +66,7 @@ const ChartContainer = React.forwardRef<
 ChartContainer.displayName = 'Chart'
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const colorConfig = Object.entries(config).filter(([_, config]) => config.theme || config.color)
 
     if (!colorConfig.length) {
