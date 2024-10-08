@@ -8,7 +8,7 @@ export function Layout(): JSX.Element {
     const { pathname } = useLocation()
 
     const paths = {
-        dashboard: '',
+        dashboard: 'dashboard',
         stock: 'stock',
         purchase: 'purchase',
         sales: 'sales',

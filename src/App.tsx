@@ -1,4 +1,4 @@
-import { Layout } from '@/layouts/layout'
+import { Layout } from '@/layouts/root-layout'
 import { Dashboard } from '@/pages/dashboard'
 import { Login } from '@/pages/login'
 import { Purchase } from '@/pages/purchase'
@@ -10,8 +10,8 @@ function App(): JSX.Element {
     return (
         <Routes>
             <Route path="/" element={<Layout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="/login" element={<Login />} />
+                <Route index element={<Login />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/stock" element={<Stock />} />
                 <Route path="/purchase" element={<Purchase />} />
                 <Route path="/sales" element={<Sales />} />
