@@ -1,14 +1,22 @@
+import { Layout } from '@/layouts/layout'
+import { Dashboard } from '@/pages/dashboard'
+import { Login } from '@/pages/login'
+import { Purchase } from '@/pages/purchase'
+import { Sales } from '@/pages/sales'
+import { Stock } from '@/pages/stock'
+import { Route, Routes } from 'react-router-dom'
+
 function App(): JSX.Element {
     return (
-        <div className="flex flex-col gap-4 p-8">
-            <p>Logo</p>
-            <h1 className="text-4xl font-extrabold">
-                Sign in to your <br /> Account
-            </h1>
-            <p className="text-sm text-muted">
-                Enter your email and password to log in to your account
-            </p>
-        </div>
+        <Routes>
+            <Route path="/" element={<Layout />}>
+                <Route index element={<Dashboard />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/stock" element={<Stock />} />
+                <Route path="/purchase" element={<Purchase />} />
+                <Route path="/sales" element={<Sales />} />
+            </Route>
+        </Routes>
     )
 }
 
