@@ -26,7 +26,7 @@ export function Layout(): JSX.Element {
                 <div className="border rounded-full p-2">
                     <LayoutGrid size={24} />
                 </div>
-                <p className="font-semibold">Bruno Major</p>
+                <p className="font-bold">TechkilaHub</p>
                 <div className="border rounded-full p-2 relative">
                     <Bell size={24} />
                     <div className="bg-error rounded-full w-[10px] h-[10px] absolute top-0 right-0" />

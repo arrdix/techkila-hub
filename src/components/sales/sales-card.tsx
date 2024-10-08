@@ -38,34 +38,5 @@ export function SalesCard({ no, date, value }: SalesCardProps): JSX.Element {
                 </div>
             </FlatCard.Footer>
         </FlatCard>
-        // <div className="flex-flex-col border border-foreground bg-foreground px-4 rounded-xl">
-        //     <div className="flex items-center">
-        //         <p className="text-sm font-semibold">{no}</p>
-        //         <Button
-        //             variant="ghost"
-        //             size="icon"
-        //             className="hover:bg-transparent hover:text-muted"
-        //         >
-        //             <Copy size={16} />
-        //         </Button>
-        //         <div className="flex ml-auto">
-        //             <Button
-        //                 variant="ghost"
-        //                 size="icon"
-        //                 className="justify-end hover:bg-transparent hover:text-muted"
-        //             >
-        //                 <SquareArrowOutUpRight size={16} />
-        //             </Button>
-        //         </div>
-        //     </div>
-        //     <Separator className="bg-background" />
-        //     <div className="flex justify-between items-center py-3">
-        //         <p className="text-xs font-semibold">{date}</p>
-        //         <div className="flex gap-1">
-        //             <p className="text-xs font-semibold">IDR</p>
-        //             <p className="text-2xl font-bold text-background">{value}</p>
-        //         </div>
-        //     </div>
-        // </div>
     )
 }

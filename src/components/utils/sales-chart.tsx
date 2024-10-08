@@ -27,7 +27,7 @@ export function SalesChart(): JSX.Element {
     } satisfies ChartConfig
 
     return (
-        <ChartContainer config={chartConfig} className="min-h-[300px] min-w-full w-full">
+        <ChartContainer config={chartConfig} className="min-h-[310px] min-w-full w-full">
             <BarChart accessibilityLayer data={chartData}>
                 <XAxis
                     dataKey="month"
