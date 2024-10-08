@@ -1,4 +1,4 @@
-import { Layout } from '@/layouts/Layout'
+import { Layout } from '@/layouts/layout'
 import { Dashboard } from '@/pages/dashboard'
 import { Login } from '@/pages/login'
 import { Purchase } from '@/pages/purchase'

@@ -5,7 +5,7 @@ import { cva, VariantProps } from 'class-variance-authority'
 import { Link } from 'react-router-dom'
 
 const navItemVariant = cva(
-    'flex flex-col items-center justify-center gap-1 w-10 h-10 bg-transparent rounded-full transition-colors',
+    'flex flex-col items-center justify-center gap-1 w-12 h-12 bg-transparent rounded-full transition-colors',
     {
         variants: {
             variant: {
