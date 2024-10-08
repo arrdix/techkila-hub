@@ -15,14 +15,14 @@ export function Layout(): JSX.Element {
                     <div className="bg-error rounded-full w-[10px] h-[10px] absolute top-0 right-0" />
                 </div>
             </div>
-            <div className="flex flex-col gap-4 py-6 h-full rounded-3xl overflow-y-auto">
+            <div className="flex flex-col gap-4 p-6 h-full rounded-3xl overflow-y-auto">
                 <Outlet />
             </div>
             <div className="flex justify-around sticky bottom-0 p-4 mt-auto shadow-base">
-                <NavItem variant="active" icon={<LayoutDashboard size={20} />} />
-                <NavItem icon={<Box size={20} />} />
-                <NavItem icon={<ShoppingBag size={20} />} />
-                <NavItem icon={<Calculator size={20} />} />
+                <NavItem variant="active" to="/" icon={<LayoutDashboard size={20} />} />
+                <NavItem to="/stock" icon={<Box size={20} />} />
+                <NavItem to="/purchase" icon={<ShoppingBag size={20} />} />
+                <NavItem to="/sales" icon={<Calculator size={20} />} />
             </div>
         </div>
     )

@@ -13,9 +13,6 @@ export function SalesChart(): JSX.Element {
         { month: 'January', sales: 186, expenses: 80 },
         { month: 'February', sales: 305, expenses: 200 },
         { month: 'March', sales: 237, expenses: 120 },
-        { month: 'April', sales: 186, expenses: 80 },
-        { month: 'May', sales: 305, expenses: 200 },
-        { month: 'June', sales: 237, expenses: 120 },
     ]
 
     const chartConfig = {
@@ -30,23 +27,20 @@ export function SalesChart(): JSX.Element {
     } satisfies ChartConfig
 
     return (
-        <div className="flex flex-col">
-            <p className="text-xs text-muted">2024 SALES CHART</p>
-            <ChartContainer config={chartConfig} className="min-h-[300px] min-w-full w-full">
-                <BarChart accessibilityLayer data={chartData}>
-                    <XAxis
-                        dataKey="month"
-                        tickLine={false}
-                        tickMargin={10}
-                        axisLine={false}
-                        tickFormatter={(value) => value.slice(0, 3)}
-                    />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <ChartLegend content={<ChartLegendContent />} />
-                    <Bar dataKey="sales" fill="var(--color-sales)" radius={4} />
-                    <Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
-                </BarChart>
-            </ChartContainer>
-        </div>
+        <ChartContainer config={chartConfig} className="min-h-[300px] min-w-full w-full">
+            <BarChart accessibilityLayer data={chartData}>
+                <XAxis
+                    dataKey="month"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value.slice(0, 3)}
+                />
+                <ChartTooltip content={<ChartTooltipContent />} />
+                <ChartLegend content={<ChartLegendContent />} />
+                <Bar dataKey="sales" fill="var(--color-sales)" radius={4} />
+                <Bar dataKey="expenses" fill="var(--color-expenses)" radius={4} />
+            </BarChart>
+        </ChartContainer>
     )
 }
