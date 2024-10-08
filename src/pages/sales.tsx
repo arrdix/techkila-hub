@@ -28,10 +28,10 @@ export function Sales(): JSX.Element {
             <div className="flex flex-col gap-2">
                 <p className="text-xs text-muted">SALES HISTORY</p>
                 <Input name="search" placeholder="Search invoice..." type="text" className="mb-2" />
-                <SalesCard invoiceNo="TKLA-BDG-0124-0123" date="12 Oct 2024" value="239.000" />
-                <SalesCard invoiceNo="TKLA-BDG-0124-0124" date="12 Oct 2024" value="13.239.000" />
-                <SalesCard invoiceNo="TKLA-BDG-0124-0125" date="12 Oct 2024" value="2.239.000" />
-                <SalesCard invoiceNo="TKLA-BDG-0124-0126" date="12 Oct 2024" value="13.500" />
+                <SalesCard no="TKLA-BDG-0124-0123" date="12 Oct 2024" value="239.000" />
+                <SalesCard no="TKLA-BDG-0124-0124" date="12 Oct 2024" value="13.239.000" />
+                <SalesCard no="TKLA-BDG-0124-0125" date="12 Oct 2024" value="2.239.000" />
+                <SalesCard no="TKLA-BDG-0124-0126" date="12 Oct 2024" value="13.500" />
             </div>
         </div>
     )
