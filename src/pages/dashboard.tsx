@@ -1,4 +1,4 @@
-import { SalesCard } from '@/components/dashboard/sales-card'
+import { SalesCard } from '@/components/sales/sales-card'
 import { Button } from '@/components/ui/button'
 import { Recap } from '@/components/ui/recap'
 import { SalesChart } from '@/components/utils/sales-chart'
