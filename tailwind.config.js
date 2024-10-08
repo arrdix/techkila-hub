@@ -12,7 +12,7 @@ export default {
                 muted: '#858585',
                 error: '#eb0000',
                 success: '#00a329',
-                link: '#22bcd4',
+                link: '#b0b0b0',
             },
             borderRadius: {
                 lg: 'var(--radius)',

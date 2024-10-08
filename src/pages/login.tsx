@@ -6,9 +6,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 
 export function Login(): JSX.Element {
     const [showPassword, setShowPassword] = useState<boolean>(false)
+    const navigate = useNavigate()
 
     const hookForm = useForm<LoginDto>({
         resolver: zodResolver(loginSchema),
@@ -21,10 +23,12 @@ export function Login(): JSX.Element {
 
     function onSubmit(values: LoginDto): void {
         console.log(values)
+
+        navigate('/dashboard')
     }
 
     return (
-        <div className="flex flex-col gap-6 p-4">
+        <div className="flex flex-col gap-6 px-4">
             <p className="font-bold">TechkilaHub</p>
             <div className="flex flex-col gap-2">
                 <h2 className="text-3xl font-extrabold">
@@ -67,7 +71,7 @@ export function Login(): JSX.Element {
                         )}
                     </Button>
                 </div>
-                <a href="/" className="text-sm text-link ml-auto">
+                <a href="/" className="text-sm text-link ml-auto hover:text-link/75">
                     Forgot Password?
                 </a>
 
@@ -76,7 +80,7 @@ export function Login(): JSX.Element {
                 </Button>
                 <p className="text-center text-sm">
                     Don&apos;t have an account?
-                    <a href="/" className="text-link">
+                    <a href="/" className="text-link hover:text-link/75">
                         {' '}
                         Contact Support
                     </a>
