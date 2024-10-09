@@ -27,11 +27,9 @@ export function SalesRecap(): JSX.Element {
                     <p className="text-xs text-muted">SALES INVOICES</p>
                 </div>
                 <Drawer>
-                    <DrawerTrigger>
-                        <Button size="lg" className="flex gap-2 w-full">
-                            Create Invoice
-                            <FilePlus2 size={18} />
-                        </Button>
+                    <DrawerTrigger className="inline-flex gap-2 items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-neutral-50 shadow hover:bg-neutral-900/90 h-10 rounded-lg px-8">
+                        Issue Invoice
+                        <FilePlus2 size={18} />
                     </DrawerTrigger>
                     <DrawerContent>
                         <DrawerHeader>

@@ -24,11 +24,11 @@ export function Login(): JSX.Element {
     function onSubmit(values: LoginDto): void {
         console.log(values)
 
-        navigate('/dashboard')
+        navigate('/')
     }
 
     return (
-        <div className="flex flex-col gap-6 px-4">
+        <div className="flex flex-col gap-6 p-8">
             <p className="font-bold">TechkilaHub</p>
             <div className="flex flex-col gap-2">
                 <h2 className="text-3xl font-extrabold">

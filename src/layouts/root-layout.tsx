@@ -1,14 +1,24 @@
 import { NavItem } from '@/components/navbar/nav-item'
-import { Bell, Box, Calculator, LayoutDashboard, LayoutGrid, ShoppingBag } from 'lucide-react'
+import { Bell, Box, Calculator, LayoutDashboard, ShoppingBag } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 
 export function Layout(): JSX.Element {
     const [activePath, setActivePath] = useState<string>('')
     const { pathname } = useLocation()
+    const navigate = useNavigate()
 
     const paths = {
-        dashboard: 'dashboard',
+        dashboard: '',
         stock: 'stock',
         purchase: 'purchase',
         sales: 'sales',
@@ -23,14 +33,45 @@ export function Layout(): JSX.Element {
     return (
         <div className="flex flex-col h-screen">
             <div className="flex justify-between items-center sticky top-0 py-4 px-6 shadow-base">
-                <div className="border rounded-full p-2">
-                    <LayoutGrid size={24} />
-                </div>
+                <DropdownMenu>
+                    <DropdownMenuTrigger className="focus:outline-none">
+                        <div className="border rounded-full p-2 relative">
+                            <Bell size={22} />
+                            <div className="bg-error rounded-full w-[10px] h-[10px] absolute top-0 right-0" />
+                        </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="translate-x-2 max-w-[300px]">
+                        <DropdownMenuLabel>Activities</DropdownMenuLabel>
+                        {Array.from([1, 2, 3]).map((i) => (
+                            <div key={i}>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuLabel className="text-xs font-medium">
+                                    <span className="font-bold">Jesse Pinkman</span> issues{' '}
+                                    <span className="font-bold">TKLA-BDG-0124-0123</span> <br />{' '}
+                                    <span className="text-muted">4m ago</span>
+                                </DropdownMenuLabel>
+                            </div>
+                        ))}
+                    </DropdownMenuContent>
+                </DropdownMenu>
                 <p className="font-bold">TechkilaHub</p>
-                <div className="border rounded-full p-2 relative">
-                    <Bell size={24} />
-                    <div className="bg-error rounded-full w-[10px] h-[10px] absolute top-0 right-0" />
-                </div>
+                <DropdownMenu>
+                    <DropdownMenuTrigger className="focus:outline-none">
+                        <Avatar>
+                            <AvatarImage src="/avatar.png" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="-translate-x-2">
+                        <DropdownMenuLabel>
+                            Jesse Pinkman <p className="text-xs text-muted">Finance</p>
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem onClick={() => navigate('/login')}>
+                            Log out
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
             <div className="flex flex-col gap-4 p-6 h-full rounded-3xl overflow-y-auto">
                 <Outlet />

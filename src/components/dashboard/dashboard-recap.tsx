@@ -40,11 +40,9 @@ export function DashboardRecap(): JSX.Element {
                     <p className="text-xs text-muted">OF THE TARGET</p>
                 </div>
                 <Drawer>
-                    <DrawerTrigger>
-                        <Button size="lg" className="flex gap-2 w-full">
-                            Breakdown
-                            <ArrowUpNarrowWide size={18} />
-                        </Button>
+                    <DrawerTrigger className="inline-flex gap-2 items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50 bg-foreground text-neutral-50 shadow hover:bg-neutral-900/90 h-10 rounded-lg px-8">
+                        Breakdown
+                        <ArrowUpNarrowWide size={18} />
                     </DrawerTrigger>
                     <DrawerContent>
                         <DrawerHeader>
@@ -88,45 +86,6 @@ export function DashboardRecap(): JSX.Element {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="flex flex-col px-4 gap-4">
-                                <div className="flex justify-between items-center">
-                                    <div className="flex flex-col gap-1 mb-4">
-                                        <p className="text-xs text-muted">TARGET</p>
-                                        <div className="flex gap-1">
-                                            <p className="text-xs font-semibold">IDR</p>
-                                            <p className="text-3xl font-bold">3.234.123.231</p>
-                                        </div>
-                                    </div>
-                                    <Crosshair />
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <p className="text-xs text-muted">BANDUNG REVENUE</p>
-                                    <div className="flex gap-1">
-                                        <p className="text-xs font-semibold">IDR</p>
-                                        <p className="text-3xl font-bold">1.234.123.231</p>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <p className="text-xs text-muted">JAKARTA REVENUE</p>
-                                    <div className="flex gap-1">
-                                        <p className="text-xs font-semibold">IDR</p>
-                                        <p className="text-3xl font-bold">1.234.123.231</p>
-                                    </div>
-                                </div>
-                                <div className="flex flex-col gap-1">
-                                    <p className="text-xs text-muted">
-                                        TOTAL REVENUE{' '}
-                                        <TrendingUp
-                                            size={15}
-                                            className="inline text-success ml-1"
-                                        />
-                                    </p>
-                                    <div className="flex gap-1">
-                                        <p className="text-xs font-semibold">IDR</p>
-                                        <p className="text-3xl font-bold">3.234.123.231</p>
-                                    </div>
-                                </div>
-                            </div> */}
                             <p className="text-xs text-muted text-center mt-4">
                                 Current total revenue is{' '}
                                 <span className="text-sm text-success font-bold">13%</span> of the

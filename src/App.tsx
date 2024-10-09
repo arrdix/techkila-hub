@@ -9,9 +9,9 @@ import { Route, Routes } from 'react-router-dom'
 function App(): JSX.Element {
     return (
         <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<Layout />}>
-                <Route index element={<Login />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route index element={<Dashboard />} />
                 <Route path="/stock" element={<Stock />} />
                 <Route path="/purchase" element={<Purchase />} />
                 <Route path="/sales" element={<Sales />} />
