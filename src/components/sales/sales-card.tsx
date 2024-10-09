@@ -16,7 +16,7 @@ export function SalesCard({ no, date, value }: SalesCardProps): JSX.Element {
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="text-muted hover:bg-transparent hover:text-muted"
+                    className="text-muted hover:bg-transparent hover:text-foreground"
                 >
                     <Copy size={16} />
                 </Button>

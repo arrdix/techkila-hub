@@ -1,7 +1,21 @@
+import { RecapSkeleton } from '@/components/skeleton/recap-skeleton'
 import { Recap } from '@/components/ui/recap'
 import { PackageCheck } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 export function StockRecap(): JSX.Element {
+    const [isPending, setIsPending] = useState<boolean>(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsPending(false)
+        }, 1000)
+    }, [])
+
+    if (isPending) {
+        return <RecapSkeleton />
+    }
+
     return (
         <Recap>
             <Recap.Title>STOCK VALUE</Recap.Title>

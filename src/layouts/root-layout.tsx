@@ -1,5 +1,5 @@
 import { NavItem } from '@/components/navbar/nav-item'
-import { Bell, Box, Calculator, LayoutDashboard, ShoppingBag } from 'lucide-react'
+import { ArrowRight, Bell, Box, Calculator, LayoutDashboard, ShoppingBag } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
@@ -11,6 +11,7 @@ import {
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
 
 export function Layout(): JSX.Element {
     const [activePath, setActivePath] = useState<string>('')
@@ -52,6 +53,10 @@ export function Layout(): JSX.Element {
                                 </DropdownMenuLabel>
                             </div>
                         ))}
+                        <DropdownMenuSeparator />
+                        <Button variant="ghost" className="justify-end gap-1 text-xs w-full">
+                            Show All Activities <ArrowRight size={16} />
+                        </Button>
                     </DropdownMenuContent>
                 </DropdownMenu>
                 <p className="font-bold">TechkilaHub</p>

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Recap } from '@/components/ui/recap'
 import { ArrowUpNarrowWide, Eye, EyeOff, TrendingUp } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Drawer,
     DrawerContent,
@@ -12,9 +12,21 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer'
 import { Separator } from '@/components/ui/separator'
+import { RecapSkeleton } from '@/components/skeleton/recap-skeleton'
 
 export function DashboardRecap(): JSX.Element {
     const [showRevenue, setShowRevenue] = useState<boolean>(false)
+    const [isPending, setIsPending] = useState<boolean>(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsPending(false)
+        }, 1000)
+    }, [])
+
+    if (isPending) {
+        return <RecapSkeleton />
+    }
 
     return (
         <Recap>

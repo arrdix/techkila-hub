@@ -11,8 +11,22 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer'
 import { Input } from '@/components/utils/input'
+import { RecapSkeleton } from '@/components/skeleton/recap-skeleton'
+import { useEffect, useState } from 'react'
 
 export function SalesRecap(): JSX.Element {
+    const [isPending, setIsPending] = useState<boolean>(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsPending(false)
+        }, 1000)
+    }, [])
+
+    if (isPending) {
+        return <RecapSkeleton />
+    }
+
     return (
         <Recap>
             <Recap.Title>CURRENT SALES</Recap.Title>

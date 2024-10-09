@@ -18,8 +18,22 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
+import { useEffect, useState } from 'react'
+import { RecapSkeleton } from '@/components/skeleton/recap-skeleton'
 
 export function PurchaseRecap(): JSX.Element {
+    const [isPending, setIsPending] = useState<boolean>(true)
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsPending(false)
+        }, 1000)
+    }, [])
+
+    if (isPending) {
+        return <RecapSkeleton />
+    }
+
     return (
         <Recap>
             <Recap.Title>CURRENT PURCHASES</Recap.Title>

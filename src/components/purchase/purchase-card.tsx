@@ -18,7 +18,7 @@ export function PurchaseCard({ no, title, category, date, value }: PurchaseCardP
                 <Button
                     variant="ghost"
                     size="icon"
-                    className="text-muted hover:bg-transparent hover:text-muted"
+                    className="text-muted hover:bg-transparent hover:text-foreground"
                 >
                     <Copy size={16} />
                 </Button>
