@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { FlatCard } from '@/components/ui/flat-card'
 import { Copy, SquareArrowOutUpRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
 interface SalesCardProps {
     no: string
@@ -25,8 +26,11 @@ export function SalesCard({ no, date, value }: SalesCardProps): JSX.Element {
                         variant="ghost"
                         size="icon"
                         className="justify-end text-muted hover:bg-transparent hover:text-foreground"
+                        asChild
                     >
-                        <SquareArrowOutUpRight size={16} />
+                        <Link to={`/sales/${no}`}>
+                            <SquareArrowOutUpRight size={16} />
+                        </Link>
                     </Button>
                 </div>
             </FlatCard.Header>

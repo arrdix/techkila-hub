@@ -22,6 +22,9 @@ export default {
             boxShadow: {
                 base: 'rgba(200, 200, 200, 0.3) 0px 0px 15px',
             },
+            fontSize: {
+                xxs: '.5rem',
+            },
         },
     },
     plugins: [require('tailwindcss-animate')],

@@ -43,7 +43,10 @@ export function StockCard({ name, type, price, qty }: StockCardProps): JSX.Eleme
                         <p className="text-2xl font-bold">{price}</p>
                     </div>
                 </div>
-                <Button variant="ghost" size="icon">
+                <Button
+                    size="icon"
+                    className="bg-foreground/5 text-foreground hover:bg-foreground/15"
+                >
                     <Settings2 size={30} />
                 </Button>
             </FlatCard.Footer>
