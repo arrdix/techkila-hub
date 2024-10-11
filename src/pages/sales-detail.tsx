@@ -1,18 +1,43 @@
 import { Separator } from '@/components/ui/separator'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
+import { useEffect, useRef, useState } from 'react'
+import { useReactToPrint } from 'react-to-print'
+import { InvoiceLayout } from '@/components/utils/invoice-layout'
+import { SalesDetailSkeleton } from '@/components/skeleton/sales-detail-skeleton'
 
 export function SalesDetail(): JSX.Element {
+    const [isPending, setIsPending] = useState<boolean>(true)
+
     const { id } = useParams()
-    console.log(id)
+    const navigate = useNavigate()
+
+    const contentRef = useRef<HTMLDivElement>(null)
+    const onPrint = useReactToPrint({
+        contentRef,
+        onBeforePrint: async () => {
+            document.title = window.parent.document.title = id ?? 'it should be the invoice number'
+        },
+        onAfterPrint: () => (document.title = window.parent.document.title = 'TechkilaHub'),
+    })
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsPending(false)
+        }, 1000)
+    }, [])
+
+    if (isPending) {
+        return <SalesDetailSkeleton />
+    }
 
     return (
         <div className="flex flex-col gap-2">
             <p className="text-xs text-muted">INVOICE</p>
             <div className="flex flex-col gap-2 border p-4 rounded-lg">
                 <div className="flex flex-col py-2">
-                    <p className="font-bold">TKLA-BDG-0124-0123</p>
+                    <p className="font-bold">{id}</p>
                     <p className="text-xs text-muted">16 Oct 2024</p>
                 </div>
                 <Separator />
@@ -57,12 +82,20 @@ export function SalesDetail(): JSX.Element {
                 </div>
             </div>
             <div className="flex justify-end gap-2">
-                <Button variant="ghost" size="lg" className="w-1/2 mt-2">
+                <Button
+                    variant="ghost"
+                    size="lg"
+                    className="w-1/2 mt-2"
+                    onClick={() => navigate(-1)}
+                >
                     Back
                 </Button>
-                <Button size="lg" className="w-1/2 mt-2">
+                <Button size="lg" className="w-1/2 mt-2" onClick={() => onPrint()}>
                     Print
                 </Button>
+            </div>
+            <div style={{ display: 'none' }}>
+                <InvoiceLayout ref={contentRef} />
             </div>
         </div>
     )
