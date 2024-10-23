@@ -1,3 +1,3 @@
 # Techkila Hub
 
-Web App built for Techkila Internal Business Management
+Web App built for Techkila Business Management
