@@ -1,6 +1,16 @@
 import { Button } from '@/components/ui/button'
 import { FlatCard } from '@/components/ui/flat-card'
 import { Barcode, Settings2 } from 'lucide-react'
+import {
+    Drawer,
+    DrawerContent,
+    DrawerDescription,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerTitle,
+    DrawerTrigger,
+} from '@/components/ui/drawer'
+import { Input } from '@/components/utils/input'
 
 interface StockCardProps {
     name: string
@@ -43,12 +53,56 @@ export function StockCard({ name, type, price, qty }: StockCardProps): JSX.Eleme
                         <p className="text-2xl font-bold">{price}</p>
                     </div>
                 </div>
-                <Button
-                    size="icon"
-                    className="bg-foreground/5 text-foreground hover:bg-foreground/15"
-                >
-                    <Settings2 size={30} />
-                </Button>
+                <Drawer>
+                    <DrawerTrigger className="bg-foreground/5 text-foreground p-2 rounded-lg transition-colors hover:bg-foreground/15">
+                        <Settings2 size={24} />
+                    </DrawerTrigger>
+                    <DrawerContent>
+                        <DrawerHeader>
+                            <DrawerTitle>Edit Stock</DrawerTitle>
+                            <DrawerDescription>Edit item's available stock.</DrawerDescription>
+                        </DrawerHeader>
+                        <DrawerFooter>
+                            <Input
+                                name="type"
+                                placeholder="Type"
+                                type="text"
+                                className="mb-2"
+                                value={type}
+                                disabled
+                            />
+                            <Input
+                                name="name"
+                                placeholder="Name"
+                                type="text"
+                                className="mb-2"
+                                value={name}
+                                disabled
+                            />
+                            <div className="flex gap-2">
+                                <Input
+                                    name="price"
+                                    placeholder="Price"
+                                    type="text"
+                                    className="mb-2 w-4/5"
+                                    value={`IDR ${price}`}
+                                    disabled
+                                />
+                                <Input
+                                    name="qty"
+                                    placeholder="Qty"
+                                    type="text"
+                                    className="mb-2 w-1/5"
+                                    value={qty}
+                                    autoFocus
+                                />
+                            </div>
+                            <Button size="lg" className="mt-2">
+                                Edit
+                            </Button>
+                        </DrawerFooter>
+                    </DrawerContent>
+                </Drawer>
             </FlatCard.Footer>
         </FlatCard>
     )

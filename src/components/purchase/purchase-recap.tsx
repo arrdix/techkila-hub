@@ -74,10 +74,12 @@ export function PurchaseRecap(): JSX.Element {
                                     />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="light">Biaya Ongkir</SelectItem>
-                                    <SelectItem value="dark">Biaya Iklan</SelectItem>
-                                    <SelectItem value="system">Pembelian Barang</SelectItem>
-                                    <SelectItem value="system">operasional</SelectItem>
+                                    <SelectItem value="biaya ongkir">Biaya Ongkir</SelectItem>
+                                    <SelectItem value="biaya iklan">Biaya Iklan</SelectItem>
+                                    <SelectItem value="pembelian barang">
+                                        Pembelian Barang
+                                    </SelectItem>
+                                    <SelectItem value="operasional">Operasional</SelectItem>
                                 </SelectContent>
                             </Select>
                             <Button size="lg" className="mt-2">
