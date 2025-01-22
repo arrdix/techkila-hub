@@ -18,10 +18,16 @@ import {
 } from '@/components/ui/drawer.tsx'
 import { FilePlus2 } from 'lucide-react'
 import { useState } from 'react'
+import { useCreateEcommerceSale } from '@/services/ecommerce-sales/hooks/use-create-ecommerce-sale.ts'
+import { Branch, Platform } from '@/types/enum.ts'
+import { MOCK_BRANCH, MOCK_PLATFORM } from '@/constants/mock.ts'
+import { ComboboxField } from '@/components/ui/ComboboxField.tsx'
 
 const defaultValues: CreateEcommerceSaleSchema = {
     orderNo: '',
     total: 0,
+    branch: '' as Branch,
+    platform: '' as Platform,
 }
 
 interface Props {
@@ -31,6 +37,8 @@ interface Props {
 
 export function SalesEcommerceForm({ title, subtitle }: Props): JSX.Element {
     const [isOpen, setIsOpen] = useState<boolean>(false)
+
+    const { mutateEcommerceSale } = useCreateEcommerceSale()
 
     const methods = useForm({
         resolver: zodResolver(createEcommerceSaleSchema),
@@ -43,14 +51,17 @@ export function SalesEcommerceForm({ title, subtitle }: Props): JSX.Element {
         formState: { isSubmitting },
     } = methods
 
-    const onSubmit = handleSubmit(async (data) => {
+    const onSubmit = handleSubmit(async (payload) => {
         await new Promise((resolve) => {
             setTimeout(() => {
                 resolve('resolve')
             }, 5000)
         })
 
-        console.log(data)
+        await mutateEcommerceSale({ payload })
+
+        console.log(payload)
+
         reset()
         setIsOpen(false)
     })
@@ -79,6 +90,16 @@ export function SalesEcommerceForm({ title, subtitle }: Props): JSX.Element {
                             label="Total"
                             placeholder="Enter the total order"
                             type="number"
+                        />
+                        <ComboboxField
+                            name="branch"
+                            placeholder="Select the branch"
+                            options={MOCK_BRANCH}
+                        />
+                        <ComboboxField
+                            name="platform"
+                            placeholder="Select the platform"
+                            options={MOCK_PLATFORM}
                         />
 
                         <Button size="xl" isLoading={isSubmitting}>
