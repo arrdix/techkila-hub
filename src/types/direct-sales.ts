@@ -1,12 +1,12 @@
 import { Branch } from '@/types/enum.ts'
+import { Product } from '@/types/product.ts'
 
-export interface IServiceSale {
+export interface IDirectSale {
     companyName: string
     picName: string
     phoneNumber: string
     address: string
-    serviceName: string
-    total: number
     discount: number
     branch: Branch
+    products: Product[]
 }

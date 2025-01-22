@@ -1,3 +1,3 @@
-import { IEcommerceSales } from '@/types/ecommerce-sales.ts'
+import { IEcommerceSale } from '@/types/ecommerce-sales.ts'
 
-export interface EcommerceSalesResponse extends IEcommerceSales {}
+export interface EcommerceSalesResponse extends IEcommerceSale {}

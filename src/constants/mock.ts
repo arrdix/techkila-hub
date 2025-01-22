@@ -23,3 +23,18 @@ export const MOCK_PLATFORM = [
         name: 'Tiktok',
     },
 ]
+
+export const MOCK_PRODUCT = [
+    {
+        id: 'ID_FINGERSPOT',
+        name: 'Fingerspot Revo',
+    },
+    {
+        id: 'ID_SOLUTION',
+        name: 'Solution MG300',
+    },
+    {
+        id: 'ID_EPPOS',
+        name: 'Eppos A123',
+    },
+]

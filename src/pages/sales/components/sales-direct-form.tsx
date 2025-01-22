@@ -1,13 +1,13 @@
 import { InputField } from '@/components/ui/InputField.tsx'
 import { Button } from '@/components/ui/button.tsx'
-import { useForm } from 'react-hook-form'
+import { useFieldArray, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
     CreateDirectSaleSchema,
     createDirectSaleSchema,
 } from '@/pages/sales/schemas/sales-direct.schema.ts'
 import { FormProvider } from '@/components/ui/form-provider.tsx'
-import { MOCK_BRANCH } from '@/constants/mock.ts'
+import { MOCK_BRANCH, MOCK_PRODUCT } from '@/constants/mock.ts'
 import { ComboboxField } from '@/components/ui/ComboboxField.tsx'
 import {
     Drawer,
@@ -18,8 +18,10 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from '@/components/ui/drawer.tsx'
-import { FilePlus2 } from 'lucide-react'
+import { CircleX, FilePlus2, Plus } from 'lucide-react'
 import { useState } from 'react'
+import { cn } from '@/libs/utils.ts'
+import { useCreateDirectSale } from '@/services/direct-sales/hooks/use-create-direct-sale.ts'
 
 const defaultValues: CreateDirectSaleSchema = {
     companyName: '',
@@ -28,6 +30,7 @@ const defaultValues: CreateDirectSaleSchema = {
     address: '',
     discount: 0,
     branch: '',
+    products: [{ id: '', quantity: 1 }],
 }
 
 interface Props {
@@ -38,30 +41,41 @@ interface Props {
 export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
     const [isOpen, setIsOpen] = useState(false)
 
+    const { mutateDirectSale } = useCreateDirectSale()
+
     const methods = useForm({
         resolver: zodResolver(createDirectSaleSchema),
         defaultValues,
     })
 
     const {
+        control,
         reset,
         handleSubmit,
         formState: { isSubmitting },
+        watch,
     } = methods
+
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: 'products',
+    })
 
     const handleClose = (): void => {
         setIsOpen(false)
         reset()
     }
 
-    const onSubmit = handleSubmit(async (data) => {
+    const onSubmit = handleSubmit(async (payload) => {
         await new Promise((resolve) => {
             setTimeout(() => {
                 resolve('resolve')
             }, 5000)
         })
 
-        console.log(data)
+        await mutateDirectSale({ payload })
+
+        console.log(payload)
         handleClose()
     })
 
@@ -106,6 +120,55 @@ export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
                             placeholder="Enter the address"
                             type="text"
                         />
+                        <div className="flex flex-col gap-4">
+                            {fields.map((field, i) => {
+                                const selectedProduct = watch(
+                                    `products.${i}.id`
+                                )
+
+                                return (
+                                    <div key={field.id} className="flex gap-2">
+                                        <ComboboxField
+                                            preferId
+                                            name={`products.${i}.id`}
+                                            placeholder="Select the product"
+                                            options={MOCK_PRODUCT}
+                                            className={cn(
+                                                'w-10/12',
+                                                fields.length > 1 && 'w-8/12'
+                                            )}
+                                        />
+                                        <InputField
+                                            disabled={!selectedProduct}
+                                            name={`products.${i}.quantity`}
+                                            label="Qty"
+                                            placeholder="Qty"
+                                            type="number"
+                                            className="w-3/12"
+                                        />
+                                        {fields.length > 1 && (
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                className="w-1/12 h-16 text-background px-0"
+                                                onClick={() => remove(i)}
+                                            >
+                                                <CircleX fill="red" />
+                                            </Button>
+                                        )}
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <Button
+                            type="button"
+                            variant="secondary"
+                            size="xl"
+                            onClick={() => append({ id: '', quantity: 1 })}
+                        >
+                            <Plus size={18} className="mr-1" />
+                            Product
+                        </Button>
                         <InputField
                             name="discount"
                             label="Discount"

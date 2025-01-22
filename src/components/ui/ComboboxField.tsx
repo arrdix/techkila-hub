@@ -26,6 +26,8 @@ type Props = {
         id: string
         name: string
     }[]
+    className?: string
+    preferId?: boolean
 }
 
 export function ComboboxField({
@@ -33,11 +35,17 @@ export function ComboboxField({
     placeholder,
     label,
     options,
+    className,
+    preferId,
 }: Props): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const [value, setValue] = useState<string>('')
 
     const { control, setValue: setFieldValue } = useFormContext()
+
+    const getId = (name: string): string => {
+        return options.find((option) => option.name === name)?.id || ''
+    }
 
     return (
         <Controller
@@ -45,7 +53,7 @@ export function ComboboxField({
             control={control}
             render={({ fieldState: { error } }) => {
                 return (
-                    <div className="flex flex-col gap-2">
+                    <div className={cn('flex flex-col gap-2', className)}>
                         {label && label}
                         <Popover open={open} onOpenChange={setOpen}>
                             <PopoverTrigger asChild>
@@ -82,9 +90,6 @@ export function ComboboxField({
                                                     onSelect={(
                                                         currentValue
                                                     ) => {
-                                                        console.log(
-                                                            currentValue
-                                                        )
                                                         const newValue =
                                                             currentValue ===
                                                             value
@@ -93,7 +98,11 @@ export function ComboboxField({
 
                                                         setFieldValue(
                                                             name,
-                                                            newValue
+                                                            preferId
+                                                                ? getId(
+                                                                      newValue
+                                                                  )
+                                                                : newValue
                                                         )
                                                         setValue(newValue)
                                                         setOpen(false)

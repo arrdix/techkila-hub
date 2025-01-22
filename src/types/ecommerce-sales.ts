@@ -1,6 +1,6 @@
 import { Branch, Platform } from '@/types/enum.ts'
 
-export interface IEcommerceSales {
+export interface IEcommerceSale {
     orderNo: string
     total: number
     platform: Platform
