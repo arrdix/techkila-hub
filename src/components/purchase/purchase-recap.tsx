@@ -38,7 +38,9 @@ export function PurchaseRecap(): JSX.Element {
         <Recap>
             <Recap.Title>CURRENT PURCHASES</Recap.Title>
             <Recap.Headline>
-                <p className="text-4xl font-extrabold align-middle">113.123.344</p>
+                <p className="text-4xl font-extrabold align-middle">
+                    113.123.344
+                </p>
             </Recap.Headline>
             <Recap.Body>
                 <div className="flex flex-col w-full">
@@ -55,7 +57,9 @@ export function PurchaseRecap(): JSX.Element {
                     <DrawerContent>
                         <DrawerHeader>
                             <DrawerTitle>Create Receipt</DrawerTitle>
-                            <DrawerDescription>Create a new purchase receipt.</DrawerDescription>
+                            <DrawerDescription>
+                                Create a new purchase receipt.
+                            </DrawerDescription>
                         </DrawerHeader>
                         <DrawerFooter>
                             <Input
@@ -65,7 +69,12 @@ export function PurchaseRecap(): JSX.Element {
                                 className="mb-2"
                                 autoFocus
                             />
-                            <Input name="value" placeholder="Value" type="text" className="mb-2" />
+                            <Input
+                                name="value"
+                                placeholder="Value"
+                                type="text"
+                                className="mb-2"
+                            />
                             <Select>
                                 <SelectTrigger className="w-full">
                                     <SelectValue
@@ -74,12 +83,18 @@ export function PurchaseRecap(): JSX.Element {
                                     />
                                 </SelectTrigger>
                                 <SelectContent>
-                                    <SelectItem value="biaya ongkir">Biaya Ongkir</SelectItem>
-                                    <SelectItem value="biaya iklan">Biaya Iklan</SelectItem>
+                                    <SelectItem value="biaya ongkir">
+                                        Biaya Ongkir
+                                    </SelectItem>
+                                    <SelectItem value="biaya iklan">
+                                        Biaya Iklan
+                                    </SelectItem>
                                     <SelectItem value="pembelian barang">
                                         Pembelian Barang
                                     </SelectItem>
-                                    <SelectItem value="operasional">Operasional</SelectItem>
+                                    <SelectItem value="operasional">
+                                        Operasional
+                                    </SelectItem>
                                 </SelectContent>
                             </Select>
                             <Button size="lg" className="mt-2">

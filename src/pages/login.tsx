@@ -1,31 +1,31 @@
 import { Button } from '@/components/ui/button'
-import ValidatedInput from '@/components/utils/validated-input'
 import { LoginDto } from '@/dto/login'
 import { loginSchema } from '@/schema/login'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { InputField } from '@/components/ui/InputField.tsx'
+import { FormProvider } from '@/components/ui/form-provider.tsx'
+import { useBoolean } from '@/hooks/use-boolean.tsx'
 
 export function Login(): JSX.Element {
-    const [showPassword, setShowPassword] = useState<boolean>(false)
     const navigate = useNavigate()
+    const password = useBoolean()
 
-    const hookForm = useForm<LoginDto>({
+    const methods = useForm<LoginDto>({
         resolver: zodResolver(loginSchema),
     })
     const {
         handleSubmit,
-        register,
-        formState: { errors },
-    } = hookForm
+        formState: { isSubmitting },
+    } = methods
 
-    function onSubmit(values: LoginDto): void {
-        console.log(values)
+    const onSubmit = handleSubmit(async (data) => {
+        console.log(data)
 
         navigate('/')
-    }
+    })
 
     return (
         <div className="flex flex-col gap-6 p-8">
@@ -38,46 +38,56 @@ export function Login(): JSX.Element {
                     Enter your username and password to log in to your account
                 </p>
             </div>
-            <form
-                onSubmit={handleSubmit((values) => onSubmit(values))}
-                className="flex flex-col gap-2"
+
+            <FormProvider
+                methods={methods}
+                onSubmit={onSubmit}
+                className="px-0"
             >
-                <ValidatedInput
+                <InputField
                     name="username"
-                    placeholder="Username"
-                    error={errors.username}
-                    register={register}
+                    label="Username"
+                    placeholder="Enter your username"
                     type="text"
                 />
                 <div className="relative">
-                    <ValidatedInput
+                    <InputField
                         name="password"
+                        label="Password"
                         placeholder="Password"
-                        error={errors.password}
-                        register={register}
-                        type={showPassword ? 'text' : 'password'}
+                        type={password.value ? 'text' : 'password'}
                     />
                     <Button
                         size="icon"
                         variant="ghost"
-                        className="absolute top-[25px] right-[5px]"
+                        className="absolute top-[16px] right-[5px]"
                         type="button"
-                        onClick={() => setShowPassword((oldValue) => !oldValue)}
+                        onClick={password.onToggle}
                     >
-                        {showPassword ? (
-                            <EyeOff size={18} className="text-muted" />
+                        {password.value ? (
+                            <EyeOff size={20} className="text-muted" />
                         ) : (
-                            <Eye size={18} className="text-muted" />
+                            <Eye size={20} className="text-muted" />
                         )}
                     </Button>
                 </div>
-                <a href="/" className="text-sm text-link ml-auto hover:text-link/75">
+
+                <a
+                    href="/"
+                    className="text-sm text-link ml-auto hover:text-link/75"
+                >
                     Forgot Password?
                 </a>
 
-                <Button size="lg" type="submit" className="w-full">
+                <Button
+                    size="lg"
+                    type="submit"
+                    className="w-full"
+                    isLoading={isSubmitting}
+                >
                     Log in
                 </Button>
+
                 <p className="text-center text-sm">
                     Don&apos;t have an account?
                     <a href="/" className="text-link hover:text-link/75">
@@ -85,15 +95,23 @@ export function Login(): JSX.Element {
                         Contact Support
                     </a>
                 </p>
-            </form>
+            </FormProvider>
+
             <div className="flex flex-col items-center justify-center gap-10 mt-4 w-full">
                 <div className="w-64 h-px bg-gray-200 border-0 relative">
                     <span className="flex justify-center bg-background w-28 absolute left-1/2 -translate-y-1/2 -translate-x-1/2">
                         <p className="text-muted text-sm">or login with</p>
                     </span>
                 </div>
-                <Button variant="outline" className="gap-2 font-semibold text-base w-full">
-                    <img className="w-5 h-5" src="/google.svg" alt="Google Logo" />
+                <Button
+                    variant="outline"
+                    className="gap-2 font-semibold text-base w-full"
+                >
+                    <img
+                        className="w-5 h-5"
+                        src="/google.svg"
+                        alt="Google Logo"
+                    />
                     Google
                 </Button>
             </div>
