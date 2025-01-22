@@ -2,9 +2,14 @@ import { SalesCard } from '@/pages/sales/components/sales-card.tsx'
 import { SalesHistorySkeleton } from '@/components/skeleton/sales-history-skeleton.tsx'
 import { Input } from '@/components/utils/input.tsx'
 import { useEffect, useState } from 'react'
+import { useGetAllInvoice } from '@/services/invoice/hooks/use-get-all-invoice.ts'
 
 export function SalesHistory(): JSX.Element {
     const [isPending, setIsPending] = useState<boolean>(true)
+
+    const { invoices } = useGetAllInvoice()
+
+    console.log(invoices)
 
     useEffect(() => {
         setTimeout(() => {
@@ -24,26 +29,9 @@ export function SalesHistory(): JSX.Element {
                 type="text"
                 className="mb-2"
             />
-            <SalesCard
-                no="TKLA-BDG-0124-0123"
-                date="12 Oct 2024"
-                value="239.000"
-            />
-            <SalesCard
-                no="TKLA-BDG-0124-0124"
-                date="12 Oct 2024"
-                value="13.239.000"
-            />
-            <SalesCard
-                no="TKLA-BDG-0124-0125"
-                date="12 Oct 2024"
-                value="2.239.000"
-            />
-            <SalesCard
-                no="TKLA-BDG-0124-0126"
-                date="12 Oct 2024"
-                value="13.500"
-            />
+            {invoices.map((invoice) => (
+                <SalesCard invoice={invoice} />
+            ))}
         </>
     )
 }

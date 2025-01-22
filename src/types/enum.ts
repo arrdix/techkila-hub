@@ -8,3 +8,9 @@ export enum Platform {
     Tokopedia = 'Tokopedia',
     Tiktok = 'Tiktok',
 }
+
+export enum SaleType {
+    Ecommerce = 'Ecommerce',
+    Direct = 'Direct',
+    Service = 'Service',
+}
