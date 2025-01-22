@@ -1,6 +1,6 @@
 import { forwardRef, ReactNode } from 'react'
 
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 import { cva, VariantProps } from 'class-variance-authority'
 import { Link } from 'react-router-dom'
 
@@ -9,7 +9,8 @@ const navItemVariant = cva(
     {
         variants: {
             variant: {
-                default: 'text-muted bg-transparent hover:bg-foreground hover:text-background',
+                default:
+                    'text-muted bg-transparent hover:bg-foreground hover:text-background',
                 active: 'text-background bg-foreground',
             },
         },
@@ -29,7 +30,11 @@ export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
     ({ className, variant, ...props }, ref) => {
         return (
             <Link to={props.to}>
-                <button ref={ref} className={cn(navItemVariant({ variant }), className)} {...props}>
+                <button
+                    ref={ref}
+                    className={cn(navItemVariant({ variant }), className)}
+                    {...props}
+                >
                     {props.icon}
                 </button>
             </Link>

@@ -1,6 +1,6 @@
 import { FormProvider as Form, UseFormReturn } from 'react-hook-form'
 import { ReactNode } from 'react'
-import { cn } from '@/lib/utils.ts'
+import { cn } from '@/libs/utils.ts'
 
 type Props = {
     children: ReactNode

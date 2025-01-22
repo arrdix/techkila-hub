@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 import { forwardRef, InputHTMLAttributes } from 'react'
 import { FieldError } from 'react-hook-form'
 
