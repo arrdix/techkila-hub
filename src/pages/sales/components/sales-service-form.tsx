@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/drawer.tsx'
 import { FilePlus2 } from 'lucide-react'
 import { useState } from 'react'
+import { useCreateServiceSale } from '@/services/service-sales/hooks/use-create-service-sale.ts'
 
 const defaultValues: CreateServiceSaleSchema = {
     companyName: '',
@@ -40,6 +41,8 @@ interface Props {
 export function SalesServiceForm({ title, subtitle }: Props): JSX.Element {
     const [isOpen, setIsOpen] = useState(false)
 
+    const { mutateServiceSale } = useCreateServiceSale()
+
     const methods = useForm({
         resolver: zodResolver(createServiceSaleSchema),
         defaultValues,
@@ -56,14 +59,16 @@ export function SalesServiceForm({ title, subtitle }: Props): JSX.Element {
         reset()
     }
 
-    const onSubmit = handleSubmit(async (data) => {
+    const onSubmit = handleSubmit(async (payload) => {
         await new Promise((resolve) => {
             setTimeout(() => {
                 resolve('resolve')
-            }, 5000)
+            }, 3000)
         })
 
-        console.log(data)
+        await mutateServiceSale({ payload })
+
+        console.log(payload)
         handleClose()
     })
 
@@ -109,12 +114,6 @@ export function SalesServiceForm({ title, subtitle }: Props): JSX.Element {
                             type="text"
                         />
                         <InputField
-                            name="discount"
-                            label="Discount"
-                            placeholder="Enter the discount"
-                            type="number"
-                        />
-                        <InputField
                             name="serviceName"
                             label="Service Name"
                             placeholder="Enter the service name"
@@ -124,6 +123,12 @@ export function SalesServiceForm({ title, subtitle }: Props): JSX.Element {
                             name="total"
                             label="Total"
                             placeholder="Enter the total"
+                            type="number"
+                        />
+                        <InputField
+                            name="discount"
+                            label="Discount"
+                            placeholder="Enter the discount"
                             type="number"
                         />
                         <ComboboxField

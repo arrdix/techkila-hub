@@ -55,7 +55,7 @@ export function SalesEcommerceForm({ title, subtitle }: Props): JSX.Element {
         await new Promise((resolve) => {
             setTimeout(() => {
                 resolve('resolve')
-            }, 5000)
+            }, 3000)
         })
 
         await mutateEcommerceSale({ payload })
