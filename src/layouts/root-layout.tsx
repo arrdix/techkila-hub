@@ -2,6 +2,7 @@ import {
     ArrowRight,
     Bell,
     Download,
+    Menu,
     Package2,
     SquareChartGantt,
     Upload,
@@ -92,7 +93,7 @@ export function Layout(): JSX.Element {
                         </Button>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                {/*<p className="text-xs font-semibold">Jesse Pinkman</p>*/}
+                {/*<p className="font-bold">TechkilaHub</p>*/}
                 <DropdownMenu>
                     <DropdownMenuTrigger className="focus:outline-none">
                         <Avatar>
@@ -112,13 +113,13 @@ export function Layout(): JSX.Element {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="flex flex-col gap-4 p-6 h-screen rounded-3xl overflow-y-auto pb-28">
+            <div className="flex flex-col gap-4 p-6 h-screen rounded-3xl overflow-y-auto pb-32">
                 <Outlet />
             </div>
-            <div className="flex flex-col gap-4 px-4 pb-6  bg-transparent absolute bottom-0 h-24 w-full max-w-[640px]">
+            <div className="flex flex-col gap-4 px-4 mb-10  bg-transparent absolute bottom-0 h-[72px] w-full max-w-[640px]">
                 <Drawer open={isOpen} onOpenChange={setIsOpen}>
-                    <DrawerTrigger className="bg-background w-full h-full rounded-2xl shadow-top">
-                        <p className="text-sm font-semibold">TechkilaHub</p>
+                    <DrawerTrigger className="flex justify-center items-center bg-background w-full h-full rounded-2xl shadow-top">
+                        <Menu size={28} />
                     </DrawerTrigger>
                     <DrawerContent className="h-full">
                         <DrawerHeader>
