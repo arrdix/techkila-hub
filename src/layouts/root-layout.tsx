@@ -1,13 +1,4 @@
-import { NavItem } from '@/components/navbar/nav-item'
-import {
-    ArrowRight,
-    Bell,
-    Box,
-    Calculator,
-    ChevronsUp,
-    LayoutDashboard,
-    ShoppingBag,
-} from 'lucide-react'
+import { ArrowRight, Bell } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
@@ -43,6 +34,8 @@ export function Layout(): JSX.Element {
         purchase: 'purchase',
         sales: 'sales',
     }
+
+    console.log(paths)
 
     useEffect(() => {
         const path = pathname.split('/')[1]
