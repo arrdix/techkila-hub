@@ -9,12 +9,19 @@ import {
     TableRow,
 } from '@/components/ui/table.tsx'
 import { formatCurrency } from '@/utils/format-number.ts'
+import { useCallback } from 'react'
+import { DEFAULT_SERVICE_QUANTITY } from '@/constants/constants.ts'
 
 type Props = {
     invoice: IInvoice & { sale: IServiceSale }
 }
 
 export function ServiceSaleDetail({ invoice }: Props): JSX.Element {
+    const calculateTotal = useCallback((price: number, quantity: number) => {
+        const total = price * quantity
+        return formatCurrency(total)
+    }, [])
+
     return (
         <div className="flex flex-col gap-2 border p-4 rounded-lg">
             <div className="flex flex-col py-2">
@@ -34,17 +41,27 @@ export function ServiceSaleDetail({ invoice }: Props): JSX.Element {
                     <TableBody>
                         <TableRow className="border-b-0">
                             <TableCell className="text-sm align-top p-0">
-                                1
+                                {DEFAULT_SERVICE_QUANTITY}
                             </TableCell>
                             <TableCell className="text-sm p-0 px-4">
                                 {invoice.sale.serviceName}
                             </TableCell>
                             <TableCell className="text-right font-bold align-top p-0">
-                                {formatCurrency(invoice.total)}
+                                {calculateTotal(
+                                    invoice.sale.price,
+                                    DEFAULT_SERVICE_QUANTITY
+                                )}
                             </TableCell>
                         </TableRow>
                     </TableBody>
                 </Table>
+            </div>
+            <Separator />
+            <div className="flex justify-between items-center gap-1 py-2">
+                <p className="text-sm">Discount</p>
+                <p className="font-bold w-max">
+                    {formatCurrency(invoice.sale.discount)}
+                </p>
             </div>
             <Separator />
             <div className="flex justify-between items-center gap-1 py-2">

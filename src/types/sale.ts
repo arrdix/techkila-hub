@@ -28,6 +28,7 @@ export interface IServiceSale {
     address: string
     picName: string
     phoneNumber: string
+    price: number
     discount: number
     branch: string
     serviceName: string

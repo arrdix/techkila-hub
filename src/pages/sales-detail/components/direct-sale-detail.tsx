@@ -9,12 +9,18 @@ import {
 import { IDirectSale } from '@/types/sale.ts'
 import { IInvoice } from '@/types/invoice.ts'
 import { formatCurrency } from '@/utils/format-number.ts'
+import { useCallback } from 'react'
 
 type Props = {
     invoice: IInvoice & { sale: IDirectSale }
 }
 
 export function DirectSaleDetail({ invoice }: Props): JSX.Element {
+    const calculateTotal = useCallback((price: number, quantity: number) => {
+        const total = price * quantity
+        return formatCurrency(total)
+    }, [])
+
     return (
         <div className="flex flex-col gap-2 border p-4 rounded-lg">
             <div className="flex flex-col py-2">
@@ -33,7 +39,7 @@ export function DirectSaleDetail({ invoice }: Props): JSX.Element {
                 <Table>
                     <TableBody>
                         {invoice.sale.products.map((product) => (
-                            <TableRow className="border-b-0">
+                            <TableRow key={product.id} className="border-b-0">
                                 <TableCell className="text-sm align-top p-0">
                                     {product.quantity}
                                 </TableCell>
@@ -41,12 +47,22 @@ export function DirectSaleDetail({ invoice }: Props): JSX.Element {
                                     {product.name}
                                 </TableCell>
                                 <TableCell className="text-right font-bold align-top p-0">
-                                    {formatCurrency(product.price)}
+                                    {calculateTotal(
+                                        product.price,
+                                        product.quantity
+                                    )}
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
+            </div>
+            <Separator />
+            <div className="flex justify-between items-center gap-1 py-2">
+                <p className="text-sm">Discount</p>
+                <p className="font-bold w-max">
+                    {formatCurrency(invoice.sale.discount)}
+                </p>
             </div>
             <Separator />
             <div className="flex justify-between items-center gap-1 py-2">

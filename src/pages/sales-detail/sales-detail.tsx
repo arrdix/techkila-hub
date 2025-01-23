@@ -96,7 +96,16 @@ export function SalesDetail(): JSX.Element {
                 )}
             </div>
             <div style={{ display: 'none' }}>
-                <InvoiceLayout ref={contentRef} />
+                {invoice.sale.saleType !== 'Ecommerce' && (
+                    <InvoiceLayout
+                        ref={contentRef}
+                        invoice={
+                            invoice as IInvoice & {
+                                sale: IDirectSale | IServiceSale
+                            }
+                        }
+                    />
+                )}
             </div>
         </div>
     )

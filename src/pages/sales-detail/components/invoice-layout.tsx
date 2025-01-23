@@ -7,9 +7,29 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table.tsx'
-import { forwardRef } from 'react'
+import { forwardRef, HTMLAttributes, useCallback } from 'react'
+import { IInvoice } from '@/types/invoice.ts'
+import { IDirectSale, IServiceSale } from '@/types/sale.ts'
+import { formatFullDate } from '@/utils/format-time.ts'
+import { formatCurrency } from '@/utils/format-number.ts'
 
-export const InvoiceLayout = forwardRef<HTMLDivElement>((props, ref) => {
+interface Props extends HTMLAttributes<HTMLDivElement> {
+    invoice: IInvoice & { sale: IDirectSale | IServiceSale }
+}
+
+const defaultServiceQuantity = 1
+
+export const InvoiceLayout = forwardRef<HTMLDivElement, Props>((props, ref) => {
+    const { invoice } = props
+
+    const calculateTotal = useCallback(
+        (price: number, quantity: number, discount: number) => {
+            const total = price * quantity - discount
+            return formatCurrency(total)
+        },
+        []
+    )
+
     return (
         <div
             className="flex flex-col gap-8 w-[1150px] h-[810px] p-8"
@@ -40,15 +60,15 @@ export const InvoiceLayout = forwardRef<HTMLDivElement>((props, ref) => {
                     <p className="text-2xl font-bold">Tagihan Kepada</p>
                     <Separator className="bg-foreground" />
                     <div className="flex flex-col">
-                        <p className="text-xl font-extrabold">Walter White</p>
+                        <p className="text-xl font-extrabold">
+                            {invoice.sale.companyName}
+                        </p>
                         <div className="flex flex-col">
-                            <p className="leading-2">
-                                Jl. Pantai Kuta No. 666 Kuta
-                            </p>
-                            <p className="leading-4">
-                                Kuta Sel, Kabupaten Badung
-                            </p>
-                            <p className="leading-2">Bali 66666</p>
+                            <p className="leading-2">{invoice.sale.address}</p>
+                            {/*<p className="leading-4">*/}
+                            {/*    Kuta Sel, Kabupaten Badung*/}
+                            {/*</p>*/}
+                            {/*<p className="leading-2">Bali 66666</p>*/}
                         </div>
                     </div>
                 </div>
@@ -62,8 +82,8 @@ export const InvoiceLayout = forwardRef<HTMLDivElement>((props, ref) => {
                             <p className="leading-4">Tanggal Jatuh Tempo</p>
                         </div>
                         <div className="flex flex-col">
-                            <p className="mb-1">TKLA-BDG-0124-0123</p>
-                            <p>32 Oktober 2024</p>
+                            <p className="mb-1">{invoice.no}</p>
+                            <p>{formatFullDate(invoice.date)}</p>
                             <p className="leading-4">-</p>
                         </div>
                     </div>
@@ -91,51 +111,51 @@ export const InvoiceLayout = forwardRef<HTMLDivElement>((props, ref) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow>
-                            <TableCell className="font-medium">
-                                Imou Cruiser Dual 8MP Outdoor
-                            </TableCell>
-                            <TableCell className="text-center">2</TableCell>
-                            <TableCell className="text-right">
-                                1.233.000
-                            </TableCell>
-                            <TableCell className="text-right">
-                                1.233.000
-                            </TableCell>
-                            <TableCell className="text-right">
-                                1.233.000
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className="font-medium">
-                                Fingerspot Revo A-232C
-                            </TableCell>
-                            <TableCell className="text-center">2</TableCell>
-                            <TableCell className="text-right">
-                                981.000
-                            </TableCell>
-                            <TableCell className="text-right">
-                                981.000
-                            </TableCell>
-                            <TableCell className="text-right">
-                                981.000
-                            </TableCell>
-                        </TableRow>
-                        <TableRow>
-                            <TableCell className="font-medium">
-                                Fingerspot Revo A-232C
-                            </TableCell>
-                            <TableCell className="text-center">2</TableCell>
-                            <TableCell className="text-right">
-                                981.000
-                            </TableCell>
-                            <TableCell className="text-right">
-                                981.000
-                            </TableCell>
-                            <TableCell className="text-right">
-                                981.000
-                            </TableCell>
-                        </TableRow>
+                        {invoice.sale.saleType === 'Direct' &&
+                            invoice.sale.products.map((product) => (
+                                <TableRow key={product.id}>
+                                    <TableCell className="font-medium">
+                                        {product.name}
+                                    </TableCell>
+                                    <TableCell className="text-center">
+                                        {product.quantity}
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        {formatCurrency(product.price)}
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        {formatCurrency(invoice.sale.discount)}
+                                    </TableCell>
+                                    <TableCell className="text-right">
+                                        {calculateTotal(
+                                            product.price,
+                                            product.quantity,
+                                            invoice.sale.discount
+                                        )}
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        {invoice.sale.saleType === 'Service' && (
+                            <TableRow>
+                                <TableCell className="font-medium">
+                                    {invoice.sale.serviceName}
+                                </TableCell>
+                                <TableCell className="text-center">2</TableCell>
+                                <TableCell className="text-right">
+                                    {formatCurrency(invoice.sale.price)}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    {formatCurrency(invoice.sale.discount)}
+                                </TableCell>
+                                <TableCell className="text-right">
+                                    {calculateTotal(
+                                        invoice.sale.price,
+                                        defaultServiceQuantity,
+                                        invoice.sale.discount
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </div>
@@ -155,13 +175,13 @@ export const InvoiceLayout = forwardRef<HTMLDivElement>((props, ref) => {
                     </div>
                     <div className="flex flex-col">
                         <p className="text-nowrap text-right font-extrabold">
-                            Rp. 131.123.142
+                            {formatCurrency(invoice.total)}
                         </p>
                         <p className="text-nowrap text-right font-extrabold">
-                            Rp. 0
+                            Rp. 0 (DUMMY)
                         </p>
                         <p className="text-nowrap text-right font-extrabold">
-                            Rp. 131.123.142
+                            {formatCurrency(invoice.total)}
                         </p>
                     </div>
                 </div>

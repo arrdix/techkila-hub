@@ -2,6 +2,8 @@ import { Branch, Platform } from '@/types/enum.ts'
 import { v4 } from 'uuid'
 import { Option } from '@/types/shared.ts'
 
+export const DEFAULT_SERVICE_QUANTITY = 1
+
 export const BRANCHES = Object.values(Branch).map((branch) => ({
     id: v4(),
     name: branch,
