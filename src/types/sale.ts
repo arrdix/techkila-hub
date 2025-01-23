@@ -1,8 +1,9 @@
 import { Branch, Platform } from '@/types/enum.ts'
+import { ProductSold } from '@/types/product.ts'
 
-export interface IEcommerce {
+export interface IEcommerceSale {
     id: number
-    saleType: 'ECommerce'
+    saleType: 'Ecommerce'
     orderNo: string
     platform: Platform
     branch: Branch
@@ -10,13 +11,14 @@ export interface IEcommerce {
 
 export interface IDirectSale {
     id: string
-    saleType: 'DirectSale'
+    saleType: 'Direct'
     companyName: string
     address: string
     picName: string
     phoneNumber: string
     discount: number
     branch: Branch
+    products: ProductSold[]
 }
 
 export interface IServiceSale {
@@ -31,4 +33,4 @@ export interface IServiceSale {
     serviceName: string
 }
 
-export type ISale = IEcommerce | IDirectSale | IServiceSale
+export type ISale = IEcommerceSale | IDirectSale | IServiceSale

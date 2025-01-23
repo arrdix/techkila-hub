@@ -19,8 +19,9 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer.tsx'
 import { FilePlus2 } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useCreateServiceSale } from '@/services/service-sales/hooks/use-create-service-sale.ts'
+import { Option } from '@/types/shared.ts'
 
 const defaultValues: CreateServiceSaleSchema = {
     companyName: '',
@@ -54,10 +55,18 @@ export function SalesServiceForm({ title, subtitle }: Props): JSX.Element {
         formState: { isSubmitting },
     } = methods
 
-    const handleClose = (): void => {
+    const handleClose = useCallback(() => {
         setIsOpen(false)
         reset()
-    }
+    }, [])
+
+    const getBranches = useCallback(async (): Promise<Option[]> => {
+        return await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(MOCK_BRANCH)
+            }, 3000)
+        })
+    }, [])
 
     const onSubmit = handleSubmit(async (payload) => {
         await new Promise((resolve) => {
@@ -134,7 +143,7 @@ export function SalesServiceForm({ title, subtitle }: Props): JSX.Element {
                         <ComboboxField
                             name="branch"
                             placeholder="Select the branch"
-                            options={MOCK_BRANCH}
+                            asyncFn={getBranches}
                         />
 
                         <Button

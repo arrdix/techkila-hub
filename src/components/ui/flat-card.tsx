@@ -15,7 +15,7 @@ const Header = forwardRef<HTMLDivElement, Header>(
             <>
                 <div
                     ref={ref}
-                    className={cn('flex items-center', className)}
+                    className={cn('flex items-center py-4', className)}
                     {...props}
                 >
                     {children}
@@ -55,7 +55,7 @@ const Footer = forwardRef<HTMLDivElement, Footer>(
             <div
                 ref={ref}
                 className={cn(
-                    'flex justify-between items-center py-3',
+                    'flex justify-between items-center py-8',
                     className
                 )}
                 {...props}

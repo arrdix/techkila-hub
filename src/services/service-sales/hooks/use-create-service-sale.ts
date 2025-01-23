@@ -28,7 +28,7 @@ export function useCreateServiceSale(): UseCreateServiceSaleReturn {
     >({
         mutationFn: ({ payload }) => api.create(payload),
         onSuccess: async () => {
-            await client.refetchQueries({ queryKey: ['service-sales'] })
+            await client.refetchQueries({ queryKey: ['invoices'] })
             toast.success('Service sale created.')
         },
         onError: () =>

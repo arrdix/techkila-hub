@@ -1,3 +1,3 @@
-import { IDirectSale } from '@/types/direct-sales.ts'
+import { IDirectSale } from '@/types/sale.ts'
 
 export interface DirectSalesResponse extends IDirectSale {}

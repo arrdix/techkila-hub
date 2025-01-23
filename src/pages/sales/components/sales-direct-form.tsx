@@ -19,9 +19,10 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer.tsx'
 import { CircleX, FilePlus2, Plus } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { cn } from '@/libs/utils.ts'
 import { useCreateDirectSale } from '@/services/direct-sales/hooks/use-create-direct-sale.ts'
+import { Option } from '@/types/shared.ts'
 
 const defaultValues: CreateDirectSaleSchema = {
     companyName: '',
@@ -61,10 +62,26 @@ export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
         name: 'products',
     })
 
-    const handleClose = (): void => {
+    const handleClose = useCallback(() => {
         setIsOpen(false)
         reset()
-    }
+    }, [])
+
+    const getProducts = useCallback(async (): Promise<Option[]> => {
+        return await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(MOCK_PRODUCT)
+            }, 3000)
+        })
+    }, [])
+
+    const getBranches = useCallback(async (): Promise<Option[]> => {
+        return await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(MOCK_BRANCH)
+            }, 3000)
+        })
+    }, [])
 
     const onSubmit = handleSubmit(async (payload) => {
         await new Promise((resolve) => {
@@ -132,7 +149,7 @@ export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
                                             preferId
                                             name={`products.${i}.id`}
                                             placeholder="Select the product"
-                                            options={MOCK_PRODUCT}
+                                            asyncFn={getProducts}
                                             className={cn(
                                                 'w-10/12',
                                                 fields.length > 1 && 'w-8/12'
@@ -178,7 +195,7 @@ export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
                         <ComboboxField
                             name="branch"
                             placeholder="Select the branch"
-                            options={MOCK_BRANCH}
+                            asyncFn={getBranches}
                         />
 
                         <Button

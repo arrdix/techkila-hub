@@ -4,7 +4,7 @@ import {
     PopoverTrigger,
 } from '@/components/ui/popover.tsx'
 import { Button } from '@/components/ui/button.tsx'
-import { Check, ChevronsUpDown } from 'lucide-react'
+import { Check, ChevronsUpDown, LoaderCircle } from 'lucide-react'
 import {
     Command,
     CommandEmpty,
@@ -14,38 +14,53 @@ import {
     CommandList,
 } from '@/components/ui/command.tsx'
 import { cn } from '@/libs/utils.ts'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 import { FieldErrorMessage } from '@/components/ui/field-error-message.tsx'
+import { Option } from '@/types/shared.ts'
 
 type Props = {
     name: string
     placeholder: string
     label?: string
-    options: {
-        id: string
-        name: string
-    }[]
     className?: string
     preferId?: boolean
+    asyncFn?: () => Promise<Option[]>
 }
 
 export function ComboboxField({
     name,
     placeholder,
     label,
-    options,
     className,
     preferId,
+    asyncFn,
 }: Props): JSX.Element {
     const [open, setOpen] = useState<boolean>(false)
     const [value, setValue] = useState<string>('')
+    const [options, setOptions] = useState<Option[]>([])
+    const [isFetching, setIsFetching] = useState<boolean>(false)
 
     const { control, setValue: setFieldValue } = useFormContext()
 
     const getId = (name: string): string => {
         return options.find((option) => option.name === name)?.id || ''
     }
+
+    const getOptions = async (): Promise<void> => {
+        if (asyncFn) {
+            const options: Option[] = await asyncFn()
+            setOptions(options)
+        }
+    }
+
+    useEffect(() => {
+        setIsFetching(true)
+        ;(async function fetch(): Promise<void> {
+            await getOptions()
+            setIsFetching(false)
+        })()
+    }, [])
 
     return (
         <Controller
@@ -82,44 +97,51 @@ export function ComboboxField({
                                             No option found.
                                         </CommandEmpty>
                                         <CommandGroup>
-                                            {options.map((option) => (
-                                                <CommandItem
-                                                    className="h-12"
-                                                    key={option.id}
-                                                    value={option.name}
-                                                    onSelect={(
-                                                        currentValue
-                                                    ) => {
-                                                        const newValue =
-                                                            currentValue ===
-                                                            value
-                                                                ? ''
-                                                                : currentValue
-
-                                                        setFieldValue(
-                                                            name,
-                                                            preferId
-                                                                ? getId(
-                                                                      newValue
-                                                                  )
-                                                                : newValue
-                                                        )
-                                                        setValue(newValue)
-                                                        setOpen(false)
-                                                    }}
-                                                >
-                                                    <Check
-                                                        className={cn(
-                                                            'mr-2 h-4 w-4',
-                                                            value ===
-                                                                option.name
-                                                                ? 'opacity-100'
-                                                                : 'opacity-0'
-                                                        )}
-                                                    />
-                                                    {option.name}
+                                            {isFetching && (
+                                                <CommandItem className="h-12">
+                                                    <LoaderCircle className="animate-spin" />
+                                                    Loading...
                                                 </CommandItem>
-                                            ))}
+                                            )}
+                                            {!isFetching &&
+                                                options.map((option) => (
+                                                    <CommandItem
+                                                        className="h-12"
+                                                        key={option.id}
+                                                        value={option.name}
+                                                        onSelect={(
+                                                            currentValue
+                                                        ) => {
+                                                            const newValue =
+                                                                currentValue ===
+                                                                value
+                                                                    ? ''
+                                                                    : currentValue
+
+                                                            setFieldValue(
+                                                                name,
+                                                                preferId
+                                                                    ? getId(
+                                                                          newValue
+                                                                      )
+                                                                    : newValue
+                                                            )
+                                                            setValue(newValue)
+                                                            setOpen(false)
+                                                        }}
+                                                    >
+                                                        <Check
+                                                            className={cn(
+                                                                'mr-2 h-4 w-4',
+                                                                value ===
+                                                                    option.name
+                                                                    ? 'opacity-100'
+                                                                    : 'opacity-0'
+                                                            )}
+                                                        />
+                                                        {option.name}
+                                                    </CommandItem>
+                                                ))}
                                         </CommandGroup>
                                     </CommandList>
                                 </Command>

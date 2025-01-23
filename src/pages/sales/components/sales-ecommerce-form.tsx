@@ -17,11 +17,12 @@ import {
     DrawerTrigger,
 } from '@/components/ui/drawer.tsx'
 import { FilePlus2 } from 'lucide-react'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useCreateEcommerceSale } from '@/services/ecommerce-sales/hooks/use-create-ecommerce-sale.ts'
 import { Branch, Platform } from '@/types/enum.ts'
 import { MOCK_BRANCH, MOCK_PLATFORM } from '@/constants/mock.ts'
 import { ComboboxField } from '@/components/ui/ComboboxField.tsx'
+import { Option } from '@/types/shared.ts'
 
 const defaultValues: CreateEcommerceSaleSchema = {
     orderNo: '',
@@ -50,6 +51,22 @@ export function SalesEcommerceForm({ title, subtitle }: Props): JSX.Element {
         handleSubmit,
         formState: { isSubmitting },
     } = methods
+
+    const getPlatforms = useCallback(async (): Promise<Option[]> => {
+        return await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(MOCK_PLATFORM)
+            }, 3000)
+        })
+    }, [])
+
+    const getBranches = useCallback(async (): Promise<Option[]> => {
+        return await new Promise((resolve) => {
+            setTimeout(() => {
+                resolve(MOCK_BRANCH)
+            }, 3000)
+        })
+    }, [])
 
     const onSubmit = handleSubmit(async (payload) => {
         await new Promise((resolve) => {
@@ -94,12 +111,12 @@ export function SalesEcommerceForm({ title, subtitle }: Props): JSX.Element {
                         <ComboboxField
                             name="branch"
                             placeholder="Select the branch"
-                            options={MOCK_BRANCH}
+                            asyncFn={getBranches}
                         />
                         <ComboboxField
                             name="platform"
                             placeholder="Select the platform"
-                            options={MOCK_PLATFORM}
+                            asyncFn={getPlatforms}
                         />
 
                         <Button size="xl" isLoading={isSubmitting}>

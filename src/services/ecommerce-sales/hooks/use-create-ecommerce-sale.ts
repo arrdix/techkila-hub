@@ -28,7 +28,7 @@ export function useCreateEcommerceSale(): UseCreateEcommerceSaleReturn {
     >({
         mutationFn: ({ payload }) => api.create(payload),
         onSuccess: async () => {
-            await client.refetchQueries({ queryKey: ['ecommerce-sales'] })
+            await client.refetchQueries({ queryKey: ['invoices'] })
             toast.success('Ecommerce sale created.')
         },
         onError: () =>

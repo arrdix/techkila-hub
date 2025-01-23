@@ -1,3 +1,3 @@
-import { IServiceSale } from '@/types/service-sales.ts'
+import { IServiceSale } from '@/types/sale.ts'
 
 export interface ServiceSalesResponse extends IServiceSale {}

@@ -28,7 +28,7 @@ export function useCreateDirectSale(): UseCreateDirectSaleReturn {
     >({
         mutationFn: ({ payload }) => api.create(payload),
         onSuccess: async () => {
-            await client.refetchQueries({ queryKey: ['direct-sales'] })
+            await client.refetchQueries({ queryKey: ['invoices'] })
             toast.success('Direct sale created.')
         },
         onError: () =>

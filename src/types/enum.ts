@@ -14,3 +14,9 @@ export enum SaleType {
     Direct = 'Direct',
     Service = 'Service',
 }
+
+export enum ProductCategory {
+    attendanceDevice = 'Attendance Device',
+    accessControlDevice = 'Access Control Device',
+    cctvCamera = 'CCTV Camera',
+}

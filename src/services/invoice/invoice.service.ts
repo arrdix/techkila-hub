@@ -9,4 +9,9 @@ export class InvoiceService {
         const response = await this.api.get('/invoice')
         return response.data
     }
+
+    async get(id: string): Promise<InvoiceResponse> {
+        const response = await this.api.get(`invoice/${id}`)
+        return response.data
+    }
 }
