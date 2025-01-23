@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/libs/utils'
 import { forwardRef, HTMLProps, ReactNode } from 'react'
 
 export function Recap({ children }: { children: ReactNode }): JSX.Element {
@@ -9,7 +9,11 @@ export type TitleProps = HTMLProps<HTMLParagraphElement>
 export const Title = forwardRef<HTMLParagraphElement, TitleProps>(
     ({ className, children, ...props }, ref) => {
         return (
-            <p className={cn('text-xs text-muted', className)} {...props} ref={ref}>
+            <p
+                className={cn('text-xs text-muted', className)}
+                {...props}
+                ref={ref}
+            >
                 {children}
             </p>
         )
@@ -31,13 +35,19 @@ const Headline = forwardRef<HTMLDivElement, HeadlineProps>(
 Headline.displayName = 'Headline'
 
 export type BodyProps = HTMLProps<HTMLDivElement>
-const Body = forwardRef<HTMLDivElement, BodyProps>(({ children, className, ...props }, ref) => {
-    return (
-        <div ref={ref} className={cn('flex items-center gap-2 mt-4', className)} {...props}>
-            {children}
-        </div>
-    )
-})
+const Body = forwardRef<HTMLDivElement, BodyProps>(
+    ({ children, className, ...props }, ref) => {
+        return (
+            <div
+                ref={ref}
+                className={cn('flex items-center gap-2 mt-4', className)}
+                {...props}
+            >
+                {children}
+            </div>
+        )
+    }
+)
 Body.displayName = 'Body'
 
 Recap.Title = Title
