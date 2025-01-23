@@ -8,7 +8,6 @@ import {
     createServiceSaleSchema,
 } from '@/pages/sales/schemas/sales-service.schema.ts'
 import { ComboboxField } from '@/components/ui/ComboboxField.tsx'
-import { MOCK_BRANCH } from '@/constants/mock.ts'
 import {
     Drawer,
     DrawerContent,
@@ -22,6 +21,7 @@ import { FilePlus2 } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { useCreateServiceSale } from '@/services/service-sales/hooks/use-create-service-sale.ts'
 import { Option } from '@/types/shared.ts'
+import { getBranchOptions } from '@/constants/constants.ts'
 
 const defaultValues: CreateServiceSaleSchema = {
     companyName: '',
@@ -61,11 +61,7 @@ export function SalesServiceForm({ title, subtitle }: Props): JSX.Element {
     }, [])
 
     const getBranches = useCallback(async (): Promise<Option[]> => {
-        return await new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(MOCK_BRANCH)
-            }, 3000)
-        })
+        return await getBranchOptions()
     }, [])
 
     const onSubmit = handleSubmit(async (payload) => {

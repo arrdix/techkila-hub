@@ -7,7 +7,6 @@ import {
     createDirectSaleSchema,
 } from '@/pages/sales/schemas/sales-direct.schema.ts'
 import { FormProvider } from '@/components/ui/form-provider.tsx'
-import { MOCK_BRANCH, MOCK_PRODUCT } from '@/constants/mock.ts'
 import { ComboboxField } from '@/components/ui/ComboboxField.tsx'
 import {
     Drawer,
@@ -23,6 +22,8 @@ import { useCallback, useState } from 'react'
 import { cn } from '@/libs/utils.ts'
 import { useCreateDirectSale } from '@/services/direct-sales/hooks/use-create-direct-sale.ts'
 import { Option } from '@/types/shared.ts'
+import { ProductService } from '@/services/product/product.service.ts'
+import { getBranchOptions } from '@/constants/constants.ts'
 
 const defaultValues: CreateDirectSaleSchema = {
     companyName: '',
@@ -38,6 +39,8 @@ interface Props {
     title: string
     subtitle: string
 }
+
+const productService = new ProductService()
 
 export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
     const [isOpen, setIsOpen] = useState(false)
@@ -68,19 +71,11 @@ export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
     }, [])
 
     const getProducts = useCallback(async (): Promise<Option[]> => {
-        return await new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(MOCK_PRODUCT)
-            }, 3000)
-        })
+        return await productService.getOptions()
     }, [])
 
     const getBranches = useCallback(async (): Promise<Option[]> => {
-        return await new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(MOCK_BRANCH)
-            }, 3000)
-        })
+        return await getBranchOptions()
     }, [])
 
     const onSubmit = handleSubmit(async (payload) => {

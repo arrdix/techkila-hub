@@ -20,9 +20,9 @@ import { FilePlus2 } from 'lucide-react'
 import { useCallback, useState } from 'react'
 import { useCreateEcommerceSale } from '@/services/ecommerce-sales/hooks/use-create-ecommerce-sale.ts'
 import { Branch, Platform } from '@/types/enum.ts'
-import { MOCK_BRANCH, MOCK_PLATFORM } from '@/constants/mock.ts'
 import { ComboboxField } from '@/components/ui/ComboboxField.tsx'
 import { Option } from '@/types/shared.ts'
+import { getBranchOptions, getPlatofrmOptions } from '@/constants/constants.ts'
 
 const defaultValues: CreateEcommerceSaleSchema = {
     orderNo: '',
@@ -53,19 +53,11 @@ export function SalesEcommerceForm({ title, subtitle }: Props): JSX.Element {
     } = methods
 
     const getPlatforms = useCallback(async (): Promise<Option[]> => {
-        return await new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(MOCK_PLATFORM)
-            }, 3000)
-        })
+        return await getPlatofrmOptions()
     }, [])
 
     const getBranches = useCallback(async (): Promise<Option[]> => {
-        return await new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(MOCK_BRANCH)
-            }, 3000)
-        })
+        return await getBranchOptions()
     }, [])
 
     const onSubmit = handleSubmit(async (payload) => {
