@@ -1,5 +1,12 @@
-import { ArrowRight, Bell } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import {
+    ArrowRight,
+    Bell,
+    Download,
+    Package2,
+    SquareChartGantt,
+    Upload,
+} from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import {
     DropdownMenu,
@@ -13,7 +20,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
     Drawer,
-    DrawerClose,
     DrawerContent,
     DrawerDescription,
     DrawerFooter,
@@ -21,11 +27,14 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from '@/components/ui/drawer.tsx'
-import { capitalize } from '@/utils/format-text.ts'
+import { NavItem } from '@/components/navbar/nav-item.tsx'
 
 export function Layout(): JSX.Element {
     const [activePath, setActivePath] = useState<string>('')
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+
     const { pathname } = useLocation()
+
     const navigate = useNavigate()
 
     const paths = {
@@ -35,7 +44,10 @@ export function Layout(): JSX.Element {
         sales: 'sales',
     }
 
-    console.log(paths)
+    const onNavClick = useCallback((destination: string) => {
+        navigate(destination)
+        setIsOpen(false)
+    }, [])
 
     useEffect(() => {
         const path = pathname.split('/')[1]
@@ -80,7 +92,7 @@ export function Layout(): JSX.Element {
                         </Button>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                <p className="font-bold">TechkilaHub</p>
+                {/*<p className="text-xs font-semibold">Jesse Pinkman</p>*/}
                 <DropdownMenu>
                     <DropdownMenuTrigger className="focus:outline-none">
                         <Avatar>
@@ -100,58 +112,71 @@ export function Layout(): JSX.Element {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-            <div className="flex flex-col gap-4 p-6 h-screen rounded-3xl overflow-y-auto pb-24">
+            <div className="flex flex-col gap-4 p-6 h-screen rounded-3xl overflow-y-auto pb-28">
                 <Outlet />
             </div>
-            <div className="flex flex-col gap-4 p-4 bg-transparent absolute bottom-0 h-24 w-full max-w-[640px]">
-                <Drawer>
-                    <DrawerTrigger className="bg-foreground w-full h-full rounded-2xl shadow-top">
-                        <p className="text-sm text-background">
-                            {capitalize(activePath)}
-                        </p>
+            <div className="flex flex-col gap-4 px-4 pb-6  bg-transparent absolute bottom-0 h-24 w-full max-w-[640px]">
+                <Drawer open={isOpen} onOpenChange={setIsOpen}>
+                    <DrawerTrigger className="bg-background w-full h-full rounded-2xl shadow-top">
+                        <p className="text-sm font-semibold">TechkilaHub</p>
                     </DrawerTrigger>
-                    <DrawerContent>
+                    <DrawerContent className="h-full">
                         <DrawerHeader>
-                            <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-                            <DrawerDescription>
-                                This action cannot be undone.
-                            </DrawerDescription>
+                            <DrawerTitle>
+                                <p className="font-bold">TechkilaHub</p>
+                            </DrawerTitle>
+                            <DrawerDescription>Main Menu</DrawerDescription>
                         </DrawerHeader>
-                        <DrawerFooter>
-                            <Button>Submit</Button>
-                            <DrawerClose>
-                                <Button variant="outline">Cancel</Button>
-                            </DrawerClose>
-                        </DrawerFooter>
+                        <div className="flex justify-center items-center h-full w-full">
+                            <div className="grid grid-cols-2 place-items-center gap-2 h-1/2 w-3/4">
+                                <NavItem
+                                    title="Dashboard"
+                                    variant={
+                                        activePath === paths.dashboard
+                                            ? 'active'
+                                            : 'default'
+                                    }
+                                    icon={<SquareChartGantt size={40} />}
+                                    onClick={() => onNavClick('/')}
+                                />
+                                <NavItem
+                                    title="Stock"
+                                    variant={
+                                        activePath === paths.stock
+                                            ? 'active'
+                                            : 'default'
+                                    }
+                                    icon={<Package2 size={40} />}
+                                    onClick={() => onNavClick('/stock')}
+                                />
+                                <NavItem
+                                    title="Purchase"
+                                    variant={
+                                        activePath === paths.purchase
+                                            ? 'active'
+                                            : 'default'
+                                    }
+                                    icon={<Upload size={40} />}
+                                    onClick={() => onNavClick('/purchase')}
+                                />
+                                <NavItem
+                                    title="Sales"
+                                    variant={
+                                        activePath === paths.sales
+                                            ? 'active'
+                                            : 'default'
+                                    }
+                                    icon={<Download size={40} />}
+                                    onClick={() => onNavClick('/sales')}
+                                />
+                            </div>
+                        </div>
+                        <DrawerFooter />
                     </DrawerContent>
                 </Drawer>
             </div>
             {/*<div className="flex justify-center sticky bottom-0 p-2 mt-auto h-72">*/}
 
-            {/*<NavItem*/}
-            {/*    variant={*/}
-            {/*        activePath === paths.dashboard ? 'active' : 'default'*/}
-            {/*    }*/}
-            {/*    icon={<LayoutDashboard size={24} />}*/}
-            {/*    to="/"*/}
-            {/*/>*/}
-            {/*<NavItem*/}
-            {/*    variant={activePath === paths.stock ? 'active' : 'default'}*/}
-            {/*    icon={<Box size={24} />}*/}
-            {/*    to="/stock"*/}
-            {/*/>*/}
-            {/*<NavItem*/}
-            {/*    variant={*/}
-            {/*        activePath === paths.purchase ? 'active' : 'default'*/}
-            {/*    }*/}
-            {/*    icon={<ShoppingBag size={24} />}*/}
-            {/*    to="/purchase"*/}
-            {/*/>*/}
-            {/*<NavItem*/}
-            {/*    variant={activePath === paths.sales ? 'active' : 'default'}*/}
-            {/*    icon={<Calculator size={24} />}*/}
-            {/*    to="/sales"*/}
-            {/*/>*/}
             {/*</div>*/}
         </div>
     )

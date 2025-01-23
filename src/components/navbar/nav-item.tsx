@@ -2,16 +2,14 @@ import { forwardRef, ReactNode } from 'react'
 
 import { cn } from '@/libs/utils'
 import { cva, VariantProps } from 'class-variance-authority'
-import { Link } from 'react-router-dom'
 
 const navItemVariant = cva(
-    'flex flex-col items-center justify-center gap-1 w-12 h-12 bg-transparent rounded-full transition-colors',
+    'flex flex-col items-center justify-center gap-1 p-1 bg-transparent rounded-full transition-colors',
     {
         variants: {
             variant: {
-                default:
-                    'text-muted bg-transparent hover:bg-foreground hover:text-background',
-                active: 'text-background bg-foreground',
+                default: 'text-muted bg-transparent hover:text-foreground',
+                active: 'text-foreground',
             },
         },
         defaultVariants: {
@@ -22,22 +20,31 @@ const navItemVariant = cva(
 
 interface NavItemProps extends VariantProps<typeof navItemVariant> {
     className?: string
-    to: string
     icon: ReactNode
+    title: string
+    onClick?: () => void
 }
 
 export const NavItem = forwardRef<HTMLButtonElement, NavItemProps>(
     ({ className, variant, ...props }, ref) => {
         return (
-            <Link to={props.to}>
-                <button
-                    ref={ref}
-                    className={cn(navItemVariant({ variant }), className)}
-                    {...props}
+            <button
+                ref={ref}
+                className={cn(navItemVariant({ variant }), className)}
+                onClick={props.onClick}
+                {...props}
+            >
+                {props.icon}
+                <p
+                    className={cn(
+                        navItemVariant({ variant }),
+                        'text-xs font-semibold',
+                        className
+                    )}
                 >
-                    {props.icon}
-                </button>
-            </Link>
+                    {props.title}
+                </p>
+            </button>
         )
     }
 )
