@@ -1,0 +1,20 @@
+{
+  "name": "TechkilaHub",
+  "short_name": "TechkilaHub",
+  "display": "standalone",
+  "start_url": "/",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon-128.png",
+      "sizes": "128x2128",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}
