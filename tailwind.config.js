@@ -21,6 +21,7 @@ export default {
             },
             boxShadow: {
                 base: 'rgba(200, 200, 200, 0.3) 0px 0px 15px',
+                top: 'rgb(38, 57, 77) 0px 0px 20px -10px',
             },
             fontSize: {
                 xxs: '.5rem',
