@@ -97,7 +97,7 @@ export function SalesDirectForm({ title, subtitle }: Props): JSX.Element {
                 <FilePlus2 size={20} />
                 {title}
             </DrawerTrigger>
-            <DrawerContent className="gap-4 h-full">
+            <DrawerContent className="gap-4 h-5/6">
                 <DrawerHeader>
                     <DrawerTitle>{title}</DrawerTitle>
                     <DrawerDescription>{subtitle}</DrawerDescription>

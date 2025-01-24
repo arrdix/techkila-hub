@@ -121,7 +121,7 @@ export function Layout(): JSX.Element {
                     <DrawerTrigger className="flex justify-center items-center bg-background w-full h-full rounded-2xl shadow-top">
                         <Menu size={28} />
                     </DrawerTrigger>
-                    <DrawerContent className="h-full">
+                    <DrawerContent className="h-5/6">
                         <DrawerHeader>
                             <DrawerTitle>
                                 <p className="font-bold">TechkilaHub</p>
